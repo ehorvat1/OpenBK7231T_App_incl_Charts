@@ -31,14 +31,17 @@ const char htmlHeadMeta[] =
 "<meta charset=\"utf-8\">"
 "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\">"
 "<meta name=\"robots\" content=\"none\">";
+// EHorvat: Change Link to http://"CFG_GetDeviceName"/api/lfs/temp_ctl.html
 const char htmlBodyStart[] =
 "<body>"
 "<noscript>To use this device, please enable JavaScript.<br></noscript>"
 "<div id=\"main\">"
 "<h1>"
-"<a target=\"_blank\" href=\"https://github.com/openshwprojects/OpenBK7231T_App/\">";
+"<a target=\"_blank\" href=\"http://";
 const char htmlBodyStart2[] =
 "</a></h1>";
+const char htmlBodyStart3[] =
+"/api/lfs/temp_ctl.html\">";
 const char htmlBodyEnd[] = "</div></body></html>";
 
 const char htmlFooterReturnToMainPage[] = "<a href=\"index\">Home</a>";
@@ -260,6 +263,8 @@ void http_html_start(http_request_t* request, const char* pagename) {
 	poststr(request, htmlHeadStyle);
 	poststr(request, "</head>");
 	poststr(request, htmlBodyStart);
+	poststr(request, CFG_GetDeviceName());
+	poststr(request, htmlBodyStart3);
 	poststr(request, CFG_GetDeviceName());
 	poststr(request, htmlBodyStart2);
 }
