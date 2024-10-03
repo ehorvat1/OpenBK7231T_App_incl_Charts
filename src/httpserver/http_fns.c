@@ -979,13 +979,8 @@ int http_fn_about(http_request_t* request) {
 	http_html_start(request, "About");
 	poststr_h2(request, "Open source firmware for BK7231N, BK7231T, T34, BL2028N, XR809, W600/W601, W800/W801, BL602, LF686 and LN882H by OpenSHWProjects");
 #if ENABLE_DRIVER_CHARTS
-//	if (DRV_IsRunning("Charts")) {
 	poststr(request, "<canvas style='display: none' id=\"obkChart\" width=\"400\" height=\"200\"></canvas>");
 	poststr(request, "<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>");
-//	};
-	if (! DRV_IsRunning("Charts")) {
-		poststr(request, "<style onload=\"document.getElementById('obkChart').style.display='none'\"></style>");
-	};
 #endif
 	poststr(request, htmlFooterReturnToMainPage);
 	http_html_end(request);
