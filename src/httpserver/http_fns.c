@@ -72,7 +72,7 @@ const char **Channel_GetOptionsForChannelType(int type, int *numTypes) {
 	ADD_OPTION(ChType_LowMidHighHighest, g_typesLowMidHighHighest);
 	ADD_OPTION(ChType_OffOnRemember, g_typesOffOnRemember);
 	ADD_OPTION(ChType_LowMidHigh, g_typeLowMidHigh);
-	
+
 	*numTypes = 0;
 	return 0;
 }
@@ -105,10 +105,10 @@ void poststr_h4(http_request_t* request, const char* content) {
 }
 
 /// @brief Generate a pair of label and field elements for Name type entry. The field is limited to entry of a-zA-Z0-9_- characters.
-/// @param request 
-/// @param label 
+/// @param request
+/// @param label
 /// @param fieldId This also gets used as the field name
-/// @param value 
+/// @param value
 /// @param preContent
 void add_label_name_field(http_request_t* request, char* label, char* fieldId, const char* value, char* preContent) {
 	if (strlen(preContent) > 0) {
@@ -121,11 +121,11 @@ void add_label_name_field(http_request_t* request, char* label, char* fieldId, c
 }
 
 /// @brief Generate a pair of label and field elements.
-/// @param request 
-/// @param label 
+/// @param request
+/// @param label
 /// @param fieldId This also gets used as the field name
-/// @param value 
-/// @param preContent 
+/// @param value
+/// @param preContent
 void add_label_input(http_request_t* request, char* inputType, char* label, char* fieldId, const char* value, char* preContent) {
 	if (strlen(preContent) > 0) {
 		poststr(request, preContent);
@@ -138,7 +138,7 @@ void add_label_input(http_request_t* request, char* inputType, char* label, char
 }
 
 /// @brief Generates a pair of label and text field elements.
-/// @param request 
+/// @param request
 /// @param label Label for the field
 /// @param fieldId Field id, this also gets used as the name
 /// @param value String value
@@ -148,7 +148,7 @@ void add_label_text_field(http_request_t* request, char* label, char* fieldId, c
 }
 
 /// @brief Generates a pair of label and text field elements.
-/// @param request 
+/// @param request
 /// @param label Label for the field
 /// @param fieldId Field id, this also gets used as the name
 /// @param value String value
@@ -158,7 +158,7 @@ void add_label_password_field(http_request_t* request, char* label, char* fieldI
 }
 
 /// @brief Generate a pair of label and numeric field elements.
-/// @param request 
+/// @param request
 /// @param label Label for the field
 /// @param fieldId Field id, this also gets used as the name
 /// @param value Integer value
@@ -453,7 +453,7 @@ int http_fn_index(http_request_t* request) {
 			else {
 				what = "speed";
 			}
-			
+
 			iValue = CHANNEL_Get(i);
 
 			poststr(request, "<tr><td>");
@@ -896,18 +896,18 @@ typedef enum {
 		hprintf255(request, "</h5>");
 	}
 
-#if ENABLE_DRIVER_CHARTS		
+#if ENABLE_DRIVER_CHARTS
 /*	// moved from drv_charts.c:
 	// on every "state" request, JS code will be loaded and canvas is redrawn
 	// this leads to a flickering graph
 	// so put this right below the "state" div
-	// with a "#ifdef 
+	// with a "#ifdef
 	// drawback : We need to take care, if driver is loaded and canvas will be displayed only on a reload of the page
 	// or we might try and hide/unhide it ...
 */
 	// since we can't simply stop showing the graph in updated status, we need to "hide" it if driver was stopped
 	if (! DRV_IsRunning("Charts")) {
-		poststr(request, "<style onload=\"document.getElementById('obkChart').style.display='none'\"></style>");		
+		poststr(request, "<style onload=\"document.getElementById('obkChart').style.display='none'\"></style>");
 	};
 
 #endif
@@ -931,12 +931,12 @@ typedef enum {
 	// for normal page loads, show the rest of the HTML
 	if (!http_getArg(request->url, "state", tmpA, sizeof(tmpA))) {
 		poststr(request, "</div>"); // end div#state
-#if ENABLE_DRIVER_CHARTS		
+#if ENABLE_DRIVER_CHARTS
 /*	// moved from drv_charts.c:
 	// on every "state" request, JS code will be loaded and canvas is redrawn
 	// this leads to a flickering graph
 	// so put this right below the "state" div
-	// with a "#ifdef 
+	// with a "#ifdef
 	// drawback : We need to take care, if driver is loaded and canvas will be displayed only on a reload of the page
 	// or we might try and hide/unhide it ...
 */
@@ -948,7 +948,7 @@ typedef enum {
 #endif
 
 
-		// Shared UI elements 
+		// Shared UI elements
 		poststr(request, "<form action=\"cfg\"><input type=\"submit\" value=\"Config\"/></form>");
 
 		poststr(request, "<form action=\"/index\">"
@@ -978,6 +978,9 @@ int http_fn_about(http_request_t* request) {
 	http_setup(request, httpMimeTypeHTML);
 	http_html_start(request, "About");
 	poststr_h2(request, "Open source firmware for BK7231N, BK7231T, T34, BL2028N, XR809, W600/W601, W800/W801, BL602, LF686 and LN882H by OpenSHWProjects");
+	if (! DRV_IsRunning("Charts")) {
+		poststr(request, "<style onload=\"document.getElementById('obkChart').style.display='none'\"></style>");
+	};
 	poststr(request, htmlFooterReturnToMainPage);
 	http_html_end(request);
 	poststr(request, NULL);
@@ -1676,7 +1679,7 @@ void doHomeAssistantDiscovery(const char* topic, http_request_t* request) {
 			excludedCount++;
 		}
 	}
-	
+
 	if (topic == 0 || *topic == 0) {
 		topic = "homeassistant";
 	}
@@ -1697,7 +1700,7 @@ void doHomeAssistantDiscovery(const char* topic, http_request_t* request) {
 
 
 #if ENABLE_ADVANCED_CHANNELTYPES_DISCOVERY
-	// try to pair toggles with dimmers. This is needed only for TuyaMCU, 
+	// try to pair toggles with dimmers. This is needed only for TuyaMCU,
 	// where custom channel types are used. This is NOT used for simple
 	// CW/RGB/RGBCW/etc lights.
 	if (CFG_HasFlag(OBK_FLAG_DISCOVERY_DONT_MERGE_LIGHTS) == false) {
@@ -2119,8 +2122,8 @@ void doHomeAssistantDiscovery(const char* topic, http_request_t* request) {
 }
 
 /// @brief Sends HomeAssistant discovery MQTT messages.
-/// @param request 
-/// @return 
+/// @param request
+/// @return
 int http_fn_ha_discovery(http_request_t* request) {
 	char topic[32];
 
@@ -2508,7 +2511,7 @@ int http_fn_cfg_pins(http_request_t* request) {
 		// Anecdotally, if pins are configured badly, the
 		// second-timer breaks. To reconfigure, force
 		// saving the configuration instead of waiting.
-		//CFG_Save_SetupTimer(); 
+		//CFG_Save_SetupTimer();
 		CFG_Save_IfThereArePendingChanges();
 
 		// Invoke Hass discovery if configuration has changed and not in safe mode.
@@ -2532,7 +2535,7 @@ int http_fn_cfg_pins(http_request_t* request) {
 	poststr(request, "];");
 
 	poststr(request, "var  sr = r.map((e,i)=>{return e[0]+'#'+i}).sort(Intl.Collator().compare).map(e=>e.split('#'));");
-	
+
 	poststr(request, "function hide_show() {"
 		"n=this.name;"
 		"er=getElement('r'+n);"
@@ -2695,7 +2698,7 @@ const char* g_obk_flagNames[] = {
 	"error",
 	"error",
 	"error",
-}; 
+};
 int http_fn_cfg_generic(http_request_t* request) {
 	int i;
 	char tmpA[64];
