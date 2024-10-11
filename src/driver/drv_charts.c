@@ -505,7 +505,7 @@ void Chart_Display(http_request_t *request, chart_t *s) {
 		poststr(request, "            }");
 	}
         poststr(request, "        }, ");  // EHorvat: Needs an additional "," to display chart title in next line
-        poststr(request, "     plugins: { title: { display: true, color:'#099',  text: '2 Stunden Trendkurve' } } ");   // EHorvat: new line, display a chart titel
+        poststr(request, "     plugins: { title: { display: true, color:'#099',  text: '4 Stunden Trendkurve' } } ");   // EHorvat: new line, display a chart titel
 	poststr(request, "    }");
 	poststr(request, "});");
 	poststr(request, "Chart.defaults.color = '#099'; ");  // Issue #1375, add a default color to improve readability (applies to: dataset names, axis ticks, color for axes title, (use color: '#099')
@@ -678,4 +678,3 @@ void DRV_Charts_Init() {
 	//cmddetail:"examples":""}
 	CMD_RegisterCommand("chart_add", CMD_Chart_Add, NULL);
 }
-
