@@ -794,7 +794,6 @@ void Main_OnEverySecond()
 #if ENABLE_DRIVER_DHT
 	if (g_dhtsCount > 0) {
 		if (bSafeMode == 0) {
-	            if (!(g_secondsElapsed % 3)) // EHorvat run DHT22 read request just every 3 seconds ( at 0.33Hz ...)
 			DHT_OnEverySecond();
 		}
 	}
