@@ -113,7 +113,7 @@ dht_t *DHT_Create(byte pin, byte type) {
 	ret->_type = type;
 	ret->_maxcycles = 10000;
 
-	DHT_begin(ret, 50);  //Pull up delay acc. datasheet 20 to 40ms ... ret,30 (was 55)
+	DHT_begin(ret, 30);  //Pull up delay acc. datasheet 20 to 40ms ... ret,30 (was 55)
 
 	return ret;
 }
