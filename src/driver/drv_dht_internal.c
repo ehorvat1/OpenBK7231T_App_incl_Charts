@@ -112,8 +112,9 @@ dht_t *DHT_Create(byte pin, byte type) {
 	ret->_pin = pin;
 	ret->_type = type;
 	ret->_maxcycles = 10000;
-
-	DHT_begin(ret, 55);  //Pull up delay acc. datasheet 20 to 40ms ... ret,30 (was 55)
+	
+//   http://www.adafruit.com/datasheets/Digital%20humidity%20and%20temperature%20sensor%20AM2302.pdf
+	DHT_begin(ret, 30);  //Pull up delay according DHT22 datasheet 20 to 40ms --> DHT_begin(ret, 30) (was 55)
 
 	return ret;
 }
@@ -313,7 +314,7 @@ bool DHT_read(dht_t *dht, bool force) {
 	switch (dht->_type) {
 	case DHT22:
 	case DHT21:
-		usleep2(2000); // data sheet says "at least 1ms"  //Like Tasmota 13.x now 2000 (was 1100)
+		usleep2(2000); // data sheet says "at least 1ms" -->  usleep2(2000) (was 1100 which may cause read errors)
 		break;
 	case DHT11:
 	default:
