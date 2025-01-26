@@ -313,7 +313,7 @@ bool DHT_read(dht_t *dht, bool force) {
 	switch (dht->_type) {
 	case DHT22:
 	case DHT21:
-		usleep2(2000); // data sheet says "at least 1ms"  //Like Tasmota 13.x now 2000 (was 1100)
+		usleep2(1100); // data sheet says "at least 1ms"  //Like Tasmota 13.x now 2000 (was 1100)
 		break;
 	case DHT11:
 	default:
